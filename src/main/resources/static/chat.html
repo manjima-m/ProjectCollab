@@ -1,0 +1,246 @@
+
+
+<!--<h2>Chat Application</h2>
+
+<div>
+    <input type="text" id="message" placeholder="Type a message">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<div id="chat">
+     
+</div>
+
+<script type="text/javascript">
+    var stompClient = null;
+
+    function connect() {
+        var socket = new SockJS('/chat');
+        stompClient = Stomp.over(socket);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/messages', function (messageOutput) {
+                showMessage(JSON.parse(messageOutput.body));
+            });
+        });
+    }
+
+    function sendMessage() {
+        var messageContent = document.getElementById("message").value;
+        var chatMessage = {
+            sender: { email: 'sender@example.com' },
+            receiver: { email: 'receiver@example.com' },
+            content: messageContent
+        };
+
+        stompClient.send("/app/send", {}, JSON.stringify(chatMessage));
+        document.getElementById("message").value = '';
+    }
+
+    function showMessage(message) {
+        var chatBox = document.getElementById("chat");
+        var messageElement = document.createElement("div");
+        messageElement.textContent = message.sender.name + ": " + message.content;
+        chatBox.appendChild(messageElement);
+    }
+
+    connect();
+</script>
+
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.0/stomp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js"></script>
+    <style>
+        .chat-container {
+            width: 800px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+        }
+        .chat-box {
+            height: 500px;
+            border: 1px solid #ccc;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+        .message {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+        .sent {
+            background-color: #007bff;
+            color: white;
+            margin-left: auto;
+            margin-right: 10px;
+        }
+        .received {
+            background-color: #e9ecef;
+            color: black;
+            margin-left: 10px;
+        }
+        .message-time {
+            font-size: 0.8em;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        #message {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Chat Application</h2>
+        
+        <div id="login-section" class="login-container">
+            <input type="email" id="userEmail" placeholder="Your email">
+            <input type="email" id="receiverEmail" placeholder="Receiver's email">
+            <button onclick="login()">Start Chat</button>
+        </div>
+
+        <div id="chat-section" style="display: none;">
+            <div class="chat-box" id="chat"></div>
+            <div class="input-container">
+                <input type="text" id="message" placeholder="Type a message">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var stompClient = null;
+        var userEmail = null;
+        var receiverEmail = null;
+    
+        function formatTime(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+    
+        async function loadChatHistory() {
+            try {
+                const response = await fetch(`/messages?senderEmail=${userEmail}&receiverEmail=${receiverEmail}`);
+                const messages = await response.json();
+                messages.forEach(showMessage);
+            } catch (error) {
+                console.error('Error loading chat history:', error);
+            }
+        }
+    
+        function login() {
+            userEmail = document.getElementById("userEmail").value;
+            receiverEmail = document.getElementById("receiverEmail").value;
+            
+            if (!userEmail || !receiverEmail) {
+                alert("Please enter both email addresses");
+                return;
+            }
+    
+            document.getElementById("login-section").style.display = "none";
+            document.getElementById("chat-section").style.display = "block";
+            connect();
+        }
+    
+        function connect() {
+            var socket = new SockJS('/chat');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/user/' + userEmail + '/queue/messages', function (messageOutput) {
+                    showMessage(JSON.parse(messageOutput.body));
+                });
+                loadChatHistory(); // Load chat history after connection
+            });
+        }
+    
+        function sendMessage() {
+            var messageInput = document.getElementById("message");
+            var messageContent = messageInput.value;
+            
+            if (messageContent && messageContent.trim() !== "") {
+                var chatMessage = {
+                    sender: { email: userEmail },
+                    receiver: { email: receiverEmail },
+                    content: messageContent,
+                    timestamp: new Date()
+                };
+    
+                stompClient.send("/app/send", {}, JSON.stringify(chatMessage));
+                messageInput.value = '';
+            }
+        }
+    
+        function showMessage(message) {
+            var chatBox = document.getElementById("chat");
+            var messageContainer = document.createElement("div");
+            messageContainer.classList.add("message");
+            
+            if (message.sender.email === userEmail) {
+                messageContainer.classList.add("sent");
+            } else {
+                messageContainer.classList.add("received");
+            }
+            
+            const time = formatTime(message.timestamp);
+            messageContainer.innerHTML = `
+                <div class="message-content">${message.content}</div>
+                <div class="message-time">${time}</div>
+            `;
+            
+            chatBox.appendChild(messageContainer);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    
+        // Handle Enter key in message input
+        document.getElementById("message").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    </script>
+    
+</body>
+</html>

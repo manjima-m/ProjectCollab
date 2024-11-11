@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Project Details</title>
+    <link rel="stylesheet" href="details.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8; /* Light blue background */
+    color: #0d3b66; /* Dark blue text */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+header {
+    background-color: #0d3b66; /* Dark blue */
+    padding: 15px;
+    text-align: center;
+}
+
+header nav a {
+    color: #ffffff; /* White text */
+    text-decoration: none;
+    font-size: 18px;
+    margin: 0 10px;
+}
+
+header nav a:hover {
+    color: #2a9d8f; /* Green hover effect */
+}
+
+/* Page Title */
+h1 {
+    text-align: center;
+    color: #2a9d8f; /* Green heading */
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+/* Project Details Styles */
+p {
+    font-size: 18px;
+    margin: 10px auto;
+    max-width: 600px;
+    background-color: #ffffff; /* White background */
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons Section */
+div {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Button Styles */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #2a9d8f; /* Green button */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #21867a; /* Darker green on hover */
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a th:href="@{/home}">Home</a> |
+            
+        </nav>
+    </header>
+
+    <h1>Project Details</h1>
+    <p><strong>Project Name:</strong> <span th:text="${project.projectName}"></span></p>
+    <p><strong>Duration:</strong> <span th:text="${project.duration}"></span> days</p>
+    <p><strong>Skills Required:</strong> <span th:text="${project.skillsRequired}"></span></p>
+    <p><strong>Experience Level:</strong> <span th:text="${project.experience}"></span></p>
+
+   <!--- <div>
+        <button onclick="window.location.href='/project/edit'" style="margin: 5px;">Edit Project</button>
+        <button onclick="deleteProject()" style="margin: 5px;">Delete Project</button>
+        
+    </div>-->
+
+    
+    
+</body>
+</html>

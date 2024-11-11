@@ -1,0 +1,125 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Header and Navigation Menu */
+.menu-bar {
+    background-color: #333;
+    overflow: hidden;
+    padding: 10px;
+}
+
+.menu-item {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item:hover {
+    background-color: #575757;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Info */
+.profile-info p {
+    margin: 10px 0;
+}
+
+.edit-icon {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+/* Profile Picture */
+.profile-picture {
+    text-align: center;
+    margin-right: 20px;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    border: 2px solid #333;
+    margin-bottom: 10px;
+}
+
+.profile-picture button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.profile-picture button:hover {
+    background-color: #45a049;
+}
+
+/* Edit Form */
+.edit-form {
+    background-color: white;
+    padding: 15px;
+    margin-left: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.edit-form input[type="file"] {
+    margin-bottom: 10px;
+}
+
+.edit-form button {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-form button:hover {
+    background-color: #007bb5;
+}
+
+/* Links */
+a {
+    color: #008CBA;
+    text-decoration: none;
+    margin: 10px;
+}
+
+a:hover {
+    text-decoration: underline;
+}

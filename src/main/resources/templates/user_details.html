@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Header styling */
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* Profile container */
+        .profile-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.082);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Profile header styling */
+        h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin: 0;
+        }
+
+        /* Detail item styling */
+        .profile-detail {
+            color: #555;
+            font-size: 1em;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .profile-detail strong {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <h1>Profile</h1>
+        <h2 th:text="${user.name}">Name</h2>
+        <div class="profile-detail">
+            <strong>Email:</strong>
+            <span th:text="${user.email}">user@example.com</span>
+        </div>
+        <div class="profile-detail">
+            <strong>Bio:</strong>
+            <span th:text="${user.bio}">User bio goes here.</span>
+        </div>
+        <div class="profile-detail">
+            <strong>Description:</strong>
+            <span th:text="${user.description}">User description goes here.</span>
+        </div>
+        
+        <!-- Add other user details here -->
+    </div>
+</body>
+</html>

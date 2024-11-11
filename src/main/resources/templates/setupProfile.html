@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload Profile</title>
+</head>
+<body>
+    <h2>Upload Profile</h2>
+    <form th:action="@{/setupProfile}" method="post"    th:object="${user}">
+       <!-- <label for="profilePic">Profile Picture:</label>
+        <input type="file" id="profilePicture" name="profilePicture" th:field="*{profilePicture}" required><br><br>-->
+
+        <label for="bio">Bio:</label>
+        <textarea id="bio" th:field="*{bio}" name="bio" th:text="${user.bio}"></textarea><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"  th:field="*{description}" th:text="${user.description}"></textarea><br><br>
+
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

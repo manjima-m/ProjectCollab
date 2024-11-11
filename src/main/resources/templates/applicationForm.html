@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Application Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+        }
+        .application-container {
+            width: 60%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        textarea, input[type="submit"] {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        input[type="submit"] {
+            background-color: #2a9d8f;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #21867a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Application for <span th:text="${project.projectName}">Project Name</span></h1>
+    <div class="application-container">
+       <!-- <p>Applying to work with <span th:text="${project.owner.name}">Project Owner</span> on this project.</p>-->
+        
+        <form th:action="@{/projects/sendApplication}" method="post">
+            <input type="hidden" name="projectId" th:value="${project.projectId}"/>
+            <label for="applicationLetter">Application Letter:</label>
+            <textarea id="applicationLetter" name="applicationLetter" rows="5" placeholder="Write your application here..."></textarea>
+            <input type="submit" value="Submit Application">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Start New Project</title>
+    <link rel="stylesheet" href="create_project.css">
+    <script>
+        // JavaScript to show or hide collaborator requirements fields
+        function toggleRequirements(checkbox) {
+            const requirementsSection = document.getElementById("collaborator-fields");
+            requirementsSection.style.display = checkbox.checked ? "block" : "none";
+        }
+    </script>
+</head>
+<body>
+    
+    
+    <header>
+        <nav>
+            <a th:href="@{/home_owner}">Home</a> |
+            
+        </nav>
+    </header>
+
+    <h1>Create a New Project</h1>
+
+
+    <form th:action="@{/create_project}" method="post" th:object="${project}">
+        <label for="projectName">Project Name:</label>
+        <input type="text" id="projectName" th:field="*{projectName}" required><br>
+
+        
+
+        <label for="duration">Duration (days):</label>
+        <input type="number" id="duration" th:field="*{duration}" required><br>
+
+        
+
+        <label>
+            <input type="checkbox" id="require-collaborator" onchange="toggleRequirements(this)">
+            Collaborator Requirements
+        </label><br>
+
+        <!-- Collaborator requirements section -->
+        <div id="collaborator-fields" style="display: none;">
+            <label for="skills-required">Skills Required:</label><br>
+            <textarea id="skills-required" th:field="*{skillsRequired}" rows="3" cols="50"></textarea><br>
+
+            <label>Experience Level:</label><br>
+            <input type="radio" id="beginner" name="experience" value="BEGINNER" th:field="*{experience}">
+            <label for="beginner">Beginner</label><br>
+
+            <input type="radio" id="intermediate" name="experience" value="INTERMEDIATE" th:field="*{experience}">
+            <label for="intermediate">Intermediate</label><br>
+
+            <input type="radio" id="advanced" name="experience" value="ADVANCED" th:field="*{experience}">
+            <label for="advanced">Advanced</label><br>
+        </div>
+
+        <button type="submit">Create Project</button>
+    </form>
+</body>
+</html>

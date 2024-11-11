@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Collaborator Home</title>
+    <link rel="stylesheet" href="home_collab.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        /* Welcome Section */
+        .welcome-bar {
+            background-color: #28a745;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        /* Navigation Links */
+        .menu-bar {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+            background-color: #28a745;
+        }
+
+        .menu-bar a {
+            color: white;
+            font-size: 1.2em;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-bar a:hover {
+            color: #e0e0e0;
+        }
+
+        /* Profile Container */
+        .container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Profile Sidebar */
+        .profile-sidebar {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .profile-picture img {
+            display: block;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .profile-info p {
+            font-size: 1.1em;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+
+        .profile-info strong {
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            font-size: 0.9em;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>Welcome, <span th:text="${user.name}">User</span>!</h1>
+    <!-- Menu Bar -->
+    <div class="menu-bar">
+        <a href="create_project"><i class="fas fa-plus-circle"></i>Create Projects</a>
+    <a href="search_users"><i class="fas fa-user-friends"></i>Search Users</a>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="profile-sidebar">
+            <div class="profile-info">
+                <p><strong>Name:</strong> <span th:text="${user.name}"></span></p>
+                <p>
+                    <strong>Bio:</strong>
+                    <span th:text="${user.bio}"></span>
+                    <!--<img src="/images/edit-icon.png" class="edit-icon" onclick="editBio()" alt="Edit Bio" />-->
+                </p>
+                <p>
+                    <strong>Description:</strong>
+                    <span th:text="${user.description}"></span>
+                   <!-- <img src="/images/edit-icon.png" class="edit-icon" onclick="editDescription()" alt="Edit Description" />-->
+                </p>
+            </div>
+        </div>
+
+        
+
+        <!-- Edit Form (Initially Hidden) -->
+       <!-- <div id="edit-profile-form" class="edit-form">
+         <form th:action="@{/home_collaborator}" method="post" enctype="multipart/form-data">
+                <input type="hidden" th:value="${user.id}" name="id" />
+
+                <label for="profilePicture">New Profile Picture:</label>
+                <input type="file" name="profilePicture" />
+
+                <button type="submit">Save</button>
+            
+        </div>
+    </div>-->
+
+    
+    <div class="notification-bar" th:if="${notifications != null}">
+        <ul>
+            <li th:each="notification : ${notifications}">
+                <span th:text="${notification.message}">Notification message</span>
+                <small th:text="${#dates.format(notification.timestamp, 'yyyy-MM-dd HH:mm')}"></small>
+            </li>
+        </ul>
+    </div>
+
+    <!--<script>
+        function toggleEditProfile() {
+            const form = document.getElementById('edit-profile-form');
+            form.style.display = (form.style.display === 'none') ? 'block' : 'none';
+        }
+
+        function editBio() {
+            const bio = document.querySelector('.profile-info p:nth-child(2) span');
+            const newBio = prompt("Edit your bio:", bio.textContent);
+            if (newBio !== null) {
+                // TODO: Add AJAX call to update bio in the database or render a form to edit bio
+                bio.textContent = newBio; // Update the displayed bio
+            }
+        }
+
+        function editDescription() {
+            const description = document.querySelector('.profile-info p:nth-child(3) span');
+            const newDescription = prompt("Edit your description:", description.textContent);
+            if (newDescription !== null) {
+                // TODO: Add AJAX call to update description in the database or render a form to edit description
+                description.textContent = newDescription; // Update the displayed description
+            }
+        }
+    </script>-->
+    <footer>
+        © 2024 Project Collaboration Platform
+    </footer>
+</body>
+</html>

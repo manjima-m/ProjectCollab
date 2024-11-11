@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Project Owner Notifications</title>
+</head>
+<body>
+    <h1>Notifications</h1>
+    <div th:each="notification : ${notifications}">
+        <p th:text="${notification.message}"></p>
+        <p th:text="${notification.timestamp}"></p>
+    </div>
+</body>
+</html>

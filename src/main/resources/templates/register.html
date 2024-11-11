@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Register</title>
+        <link rel="stylesheet" href="register.css">
+        <script>
+            //based on checkbox selection hide or show fields
+            function toggleFields(level){
+                const section=document.getElementById(level + "-fields");
+                section.style.display = event.target.checked ? "block" : "none";
+            }
+        </script>
+        <style>
+            /* Initially hide all education sections */
+            .education-section {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Register</h2>
+        <form th:action="@{/register}" method="post" th:object="${user}" >
+            <label>Name:</label> <input type="text" th:field="*{name}" required><br>
+            <label>Age:</label> <input type="number" th:field="*{age}" required><br>
+            <label>Gender:</label>
+            <input type="radio" th:field="*{gender}" value="Male"> Male
+            <input type="radio" th:field="*{gender}" value="Female"> Female
+            <input type="radio" th:field="*{gender}" value="Other">Other<br>
+            <div>
+                <label>Phone Number:</label>
+                <input type="text" th:field="*{phone}" /> <!-- Ensure this matches your entity -->
+            </div>
+            
+            <label>Email:</label> <input type="email" name="email" th:field="*{email}" required><br>
+            <label>Password:</label> <input type="password" name="password" th:field="*{password}" required><br>
+            <!-- Checkboxes for Education Levels -->
+            <div>
+                <h3>Education Details</h3>
+    
+                <!-- Checkboxes for Education Levels -->
+                <div>
+                    <label><input type="checkbox" name="educationLevels" value="High School" onclick="toggleFields('highschool')" /> High School</label><br />
+                    <label><input type="checkbox" name="educationLevels" value="Higher Secondary" onclick="toggleFields('highersecondary')" /> Higher Secondary</label><br />
+                    <label><input type="checkbox" name="educationLevels" value="Graduate" onclick="toggleFields('graduate')" /> Graduate</label><br />
+                    <label><input type="checkbox" name="educationLevels" value="Postgraduate" onclick="toggleFields('postgraduate')" /> Postgraduate</label><br />
+                    <label><input type="checkbox" name="educationLevels" value="Other Certifications" onclick="toggleFields('certification')" /> Other Certifications</label>
+                </div>
+        
+                <!-- Input Fields for High School -->
+                <div id="highschool-fields" class="education-section">
+                    <h4>High School</h4>
+                    <label>Institution Name:</label>
+                    <input type="text" name="highschoolInstitution" /><br />
+                    <label>Graduation Year:</label>
+                    <input type="text" name="highschoolYear" /><br />
+                    <label>Marks (CGPA/Percentage):</label>
+                    <input type="text" name="highschoolMarks" />
+                </div>
+        
+                <!-- Input Fields for Higher Secondary -->
+                <div id="highersecondary-fields" class="education-section">
+                    <h4>Higher Secondary</h4>
+                    <label>Institution Name:</label>
+                    <input type="text" name="higherSecondaryInstitution" /><br />
+                    <label>Graduation Year:</label>
+                    <input type="text" name="higherSecondaryYear" /><br />
+                    <label>Marks (CGPA/Percentage):</label>
+                    <input type="text" name="higherSecondaryMarks" />
+                </div>
+        
+                <!-- Input Fields for Graduate -->
+                <div id="graduate-fields" class="education-section">
+                    <h4>Graduate</h4>
+                    <label>Institution Name:</label>
+                    <input type="text" name="graduateInstitution" /><br />
+                    <label>Graduation Year:</label>
+                    <input type="text" name="graduateYear" /><br />
+                    <label>Marks (CGPA/Percentage):</label>
+                    <input type="text" name="graduateMarks" />
+                </div>
+        
+                <!-- Input Fields for Postgraduate -->
+                <div id="postgraduate-fields" class="education-section">
+                    <h4>Postgraduate</h4>
+                    <label>Institution Name:</label>
+                    <input type="text" name="postgraduateInstitution" /><br />
+                    <label>Graduation Year:</label>
+                    <input type="text" name="postgraduateYear" /><br />
+                    <label>Marks (CGPA/Percentage):</label>
+                    <input type="text" name="postgraduateMarks" />
+                </div>
+        
+                <!-- Input Fields for Other Certifications -->
+                <div id="certification-fields" class="education-section">
+                    <h4>Other Certifications</h4>
+                    <label>Certification Name:</label>
+                    <input type="text" name="certificationName" /><br />
+                    <label>Upload Certificate:</label>
+                    <input type="file" name="certificateFile" />
+                </div>
+        
+                <!--<form action="/register" method="POST">-->
+                    
+                    <label for="role">Select Role:</label>
+        <select id="role" name="role" th:field="*{role}">
+           <!-- <option th:each="role : ${roles}"
+                    th:value="${role}" 
+                    th:text="${role}">
+                </option>-->
+                <option value="COLLABORATOR">Collaborator</option>
+                <option value="PROJECT_OWNER">Project Owner</option>
+              
+        </select>
+    
+                
+        <label for="bio">Bio:</label>
+        <textarea id="bio" th:field="*{bio}" name="bio" th:text="${user.bio}"></textarea><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"  th:field="*{description}" th:text="${user.description}" cols="60" rows="20"></textarea><br><br>    
+        
+        
+        
+                
+            <button type="submit">Register</button>
+        </form>
+    </body>
+   
+    
+</html>
