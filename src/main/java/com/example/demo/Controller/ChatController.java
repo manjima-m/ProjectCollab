@@ -2,7 +2,7 @@ package com.example.demo.Controller;
 
 
 
-import com.example.demo.Entity.ChatMessage;
+/*import com.example.demo.Entity.ChatMessage;
 import com.example.demo.Service.ChatService;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class ChatController {
     public ChatMessage sendMessage(ChatMessage chatMessage) {
         return chatService.sendMessage(chatMessage.getSender().getEmail(), chatMessage.getReceiver().getEmail(), chatMessage.getContent());
     }
-}*/
+}
 @RestController
 public class ChatController {
 
@@ -60,4 +60,36 @@ public void sendMessage(ChatMessage chatMessage) {
     );
 }
 
-}
+}*/
+
+
+/*import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.stereotype.Controller;
+
+import com.example.demo.Entity.ChatMessage;
+
+@Controller
+public class ChatController {
+
+    @MessageMapping("/chat.sendMessage")
+    @SendTo("/topic/public")
+    public ChatMessage sendMessage(
+            @Payload ChatMessage chatMessage
+    ) {
+        return chatMessage;
+    }
+
+    @MessageMapping("/chat.addUser")
+    @SendTo("/topic/public")
+    public ChatMessage addUser(
+            @Payload ChatMessage chatMessage,
+            SimpMessageHeaderAccessor headerAccessor
+    ) {
+        // Add username in web socket session
+        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+        return chatMessage;
+    }
+}*/

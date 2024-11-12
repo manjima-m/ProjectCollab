@@ -1,4 +1,4 @@
-package com.example.demo.config;
+/*package com.example.demo.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 
@@ -28,4 +28,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         ///topic is the prefix for topics to which clients can subscribe.
 
     }
-}
+}*/

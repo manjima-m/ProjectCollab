@@ -1,10 +1,10 @@
-package com.example.demo.Entity;
+//package com.example.demo.Entity;
 
 
 
 
 
-import jakarta.persistence.*;
+/*import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -66,4 +66,20 @@ public class ChatMessage {
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
-}
+}*/
+
+
+/*import lombok.*;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ChatMessage {
+
+    private MessageType type;
+    private String content;
+    private String sender;
+
+}*/

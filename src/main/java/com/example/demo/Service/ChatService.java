@@ -1,4 +1,4 @@
-package com.example.demo.Service;
+/*package com.example.demo.Service;
 
 
 
@@ -42,3 +42,4 @@ public class ChatService {
         return chatMessageRepository.findBySenderAndReceiverOrReceiverAndSender(sender, receiver, receiver, sender);
     }
 }
+*/

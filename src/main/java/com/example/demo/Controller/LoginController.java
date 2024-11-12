@@ -31,6 +31,7 @@ public class LoginController {
             // Store user in session
             session.setAttribute("user", user);
             session.setAttribute("currentUserEmail", user.getEmail());
+            session.setAttribute("loggedInUser", user);
             // Logging for debugging
         System.out.println("User logged in: " + user.getEmail());
             // Redirect based on user role
@@ -57,6 +58,9 @@ public String collaboratorHome(HttpSession session, Model model) {
     User user = (User) session.getAttribute("user");
     if (user != null) {
         model.addAttribute("user", user);
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("name", user.getName());
+        System.out.println("User on home page: " + user.getEmail());
         return "home_collaborator";  // Make sure this matches your HTML file name
     }
     return "redirect:/login";  // Redirect if user is not found
@@ -71,7 +75,17 @@ public String OwnerHome(HttpSession session, Model model) {
     }
     return "redirect:/login";  // Redirect if user is not found
 }
+@PostMapping("/home_owner")
+public String ownerhome(Model model) {
+    model.addAttribute("error","");
+    return "lhome_owner";
+}
 
+@PostMapping("/home_collaborator")
+public String collaboratorhome(Model model) {
+    model.addAttribute("error","");
+    return "lhome_collaborator";
+}
 
    /*  @GetMapping("/home_collaborator")
     public String collaboratorHome(HttpSession session, Model model,String email) {

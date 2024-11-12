@@ -85,11 +85,13 @@
 
         <div class="project-box" th:each="project : ${projects}">
             <h2  th:text="${project.projectName}">Project Name</h2> 
+           
                 <p class="project-detail">
                     <p class="project-detail"><span th:text="${project.projectId}">Project Description</span></p>
             <span th:text="${project.duration}">Project Description</span></p>
             <p class="project-detail"><span th:text="${project.skillsRequired}">Project Description</span></p>
             <p class="project-detail"> <span th:text="${project.experience}">Project Description</span></p>
+            
 
              <!-- Form to send request -->
             <form th:action="@{/projects/request}" method="get">

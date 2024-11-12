@@ -79,7 +79,7 @@ button:hover {
 <body>
     <header>
         <nav>
-            <a th:href="@{/home}">Home</a> |
+            <a th:href="@{/home_owner}">Home</a> |
             
         </nav>
     </header>
@@ -89,6 +89,8 @@ button:hover {
     <p><strong>Duration:</strong> <span th:text="${project.duration}"></span> days</p>
     <p><strong>Skills Required:</strong> <span th:text="${project.skillsRequired}"></span></p>
     <p><strong>Experience Level:</strong> <span th:text="${project.experience}"></span></p>
+    
+    <p><strong>Created By:</strong> <span th:text="${name}"></span> (<span th:text="${email}"></span>)</p>
 
    <!--- <div>
         <button onclick="window.location.href='/project/edit'" style="margin: 5px;">Edit Project</button>

@@ -25,15 +25,21 @@
 
 
     <form th:action="@{/create_project}" method="post" th:object="${project}">
+        <p><strong>Creator:</strong> <span th:text="${name}"></span> (<span th:text="${email}" ></span>)</p>
         <label for="projectName">Project Name:</label>
         <input type="text" id="projectName" th:field="*{projectName}" required><br>
+    
+        
+    <!-- Set the email field value with the project owner's email -->
+    
+
 
         
 
         <label for="duration">Duration (days):</label>
         <input type="number" id="duration" th:field="*{duration}" required><br>
 
-        
+            
 
         <label>
             <input type="checkbox" id="require-collaborator" onchange="toggleRequirements(this)">

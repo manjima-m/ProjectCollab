@@ -4,11 +4,7 @@ package com.example.demo.Service;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
 
-
-
-
-
-
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +27,9 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-   
+   public User getLoggedInUser(HttpSession session) {
+        return (User) session.getAttribute("loggedInUser");
+    }
 
 
   /*   public void setupProfile(int id,  String bio, String description) throws IOException {

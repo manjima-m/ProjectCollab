@@ -16,6 +16,9 @@ import com.example.demo.Entity.User;
 import com.example.demo.Repository.ProjectOwnerRepository;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.ProjectService;
+import com.example.demo.Service.UserService;
+
+import jakarta.servlet.http.HttpSession;
 
 
 
@@ -31,6 +34,8 @@ public class StartProjectController {
     private ProjectService projectService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
     public StartProjectController(ProjectOwnerRepository projectOwnerRepository) {
         this.projectOwnerRepository = projectOwnerRepository;
@@ -38,19 +43,38 @@ public class StartProjectController {
 
     // Handles GET request for starting a new project
     @GetMapping
-    public String startProject(Model model) {
-        model.addAttribute("project", new ProjectOwner()); // Initialize a new ProjectOwner
+    public String startProject(Model model,HttpSession session) {
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+    if (loggedInUser != null) {
+        model.addAttribute("email", loggedInUser.getEmail());
+        model.addAttribute("name", loggedInUser.getName());
+    } 
+    /*User user = (User) session.getAttribute("user");
+    if (user != null) {
+        model.addAttribute("user", user);
+        model.addAttribute("email", user.getEmail());
+        model.addAttribute("name", user.getName());
+        System.out.println("User on home page: " + user.getEmail());
+        ProjectOwner projects = new ProjectOwner();
+        String email=projects.getEmail();
+        projects.setEmail(email);
+    }*/
+        model.addAttribute("project", new ProjectOwner()); 
+         // Initialize a new ProjectOwner
         return "create_project"; // Return the name of the Thymeleaf template (start_project.html)
     }
 
     // Handles POST request for creating the project
     @PostMapping
     public String createProject(@ModelAttribute("project") ProjectOwner project,RedirectAttributes redirectAttributes,String email) {
+        System.out.println(project);
+        System.out.println(redirectAttributes);
+        System.out.println(email);
         User user = userRepository.findByEmail(email);
         project.setOwner(user);
         projectOwnerRepository.save(project);
         redirectAttributes.addFlashAttribute("message", "Project created successfully!"); // Save the project to the database
-        return "redirect:/details/" + project.getId(); // Redirect to project details page
+        return "redirect:/details/" + project.getProjectId(); // Redirect to project details page
     }
 
 
@@ -58,10 +82,16 @@ public class StartProjectController {
 public class ProjectController {
 
     @GetMapping("/details/{id}")
-    public String getProjectDetails(@PathVariable Integer id, Model model) {
+    public String getProjectDetails(@PathVariable Integer id, Model model,HttpSession session) {
         // Fetch project details using the ID
+        User loggedInUser = (User) session.getAttribute("loggedInUser");
+        if (loggedInUser != null) {
+            model.addAttribute("email", loggedInUser.getEmail());
+            model.addAttribute("name", loggedInUser.getName());
+        }
         ProjectOwner project = projectService.findById(id);
         model.addAttribute("project", project);
+       
         return "details";  // Corresponding view name (Thymeleaf template)
     }
 }

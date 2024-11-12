@@ -131,6 +131,11 @@
             <div class="profile-info">
                 <p><strong>Name:</strong> <span th:text="${user.name}"></span></p>
                 <p>
+                    <strong>Email</strong>
+                    <span th:text="${user.email}"></span>
+                    <!--<img src="/images/edit-icon.png" class="edit-icon" onclick="editDescription()" alt="Edit Description" />-->
+                    </p>
+                <p>
                     <strong>Bio:</strong>
                     <span th:text="${user.bio}"></span>
                     <!--<img src="/images/edit-icon.png" class="edit-icon" onclick="editBio()" alt="Edit Bio" />-->
@@ -140,6 +145,7 @@
                     <span th:text="${user.description}"></span>
                     <!--<img src="/images/edit-icon.png" class="edit-icon" onclick="editDescription()" alt="Edit Description" />-->
                     </p>
+                    
                 </p>
                 </div>
             </div>

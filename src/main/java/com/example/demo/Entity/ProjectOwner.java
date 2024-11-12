@@ -29,12 +29,11 @@ public class ProjectOwner {
     private ExperienceLevel experience; // Maps to experience in the database
 
     
-
   /*  @ManyToOne
     @JoinColumn(name = "ownerId", referencedColumnName = "id")
     private User owner; // Maps to owner_id in the database, referencing User's 'id'
 */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "email", referencedColumnName = "email")
     private User owner; // Maps to owner_id in the database, referencing User's 'id'
    
@@ -103,7 +102,6 @@ public class ProjectOwner {
     
 
     
-
 
 
     // Enum for Experience Levels
